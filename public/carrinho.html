@@ -330,14 +330,9 @@ async function gerarPagamento() {
             body: JSON.stringify({ items })
         });
         const data = await response.json();
-        if (data.qr_code && data.init_point) {
-            placeholder.innerHTML = `
-                <div style="display:flex;flex-direction:column;align-items:center;gap:1rem;">
-                    <span style="font-weight:700;color:#e6007e;">Escaneie o QR Code para pagar:</span>
-                    <img src="${data.qr_code}" alt="QR Code Pagamento" style="width:180px;height:180px;" />
-                    <button onclick="window.location.href='${data.init_point}'">Pagar agora</button>
-                </div>
-            `;
+        if (data.init_point) {
+            // Redireciona automaticamente para o pagamento
+            window.location.href = data.init_point;
         } else {
             placeholder.innerHTML = 'Erro ao gerar pagamento.';
         }
