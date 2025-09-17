@@ -225,15 +225,15 @@
             <div class="tab" role="tab" aria-selected="false" tabindex="-1">ENTREGA</div>
             <div class="tab" role="tab" aria-selected="false" tabindex="-1">RESUMO DO PEDIDO</div>
         </div>
-            <section class="loading-panel" aria-live="polite" aria-busy="true" aria-label="Carregando formulário de pagamento">
-                <div class="form-placeholder" id="payment-placeholder">
-                    Carregando formulário de pagamento...
-                </div>
-                <div style="text-align:center;">
-                    <button onclick="anteriorPasso(1)">Voltar</button>
-                    <button onclick="proximoPasso(3)">Próximo</button>
-                </div>
-            </section>
+                <section class="loading-panel" aria-live="polite" aria-busy="true" aria-label="Carregando formulário de pagamento">
+                    <div class="form-placeholder" id="payment-placeholder">
+                        Carregando formulário de pagamento...
+                    </div>
+                    <div style="text-align:center;">
+                        <button onclick="anteriorPasso(1)">Voltar</button>
+                        <button onclick="proximoPasso(3)">Próximo</button>
+                    </div>
+                </section>
     </section>
 
     <!-- Passo 3 -->
@@ -309,11 +309,12 @@ function anteriorPasso(passo) {
     proximoPasso(passo);
 }
 
+// Função para consumir apenas a API Netlify
 async function gerarPagamento() {
     const placeholder = document.getElementById('payment-placeholder');
     placeholder.innerHTML = 'Gerando pagamento...';
 
-    // Exemplo de itens, pode ser adaptado para ler do carrinho real
+    // Itens fixos de exemplo (ajuste conforme seu carrinho real)
     const items = [
         {
             title: 'Kit Máscara Capilar + Proteína + Booster - Wepink',
