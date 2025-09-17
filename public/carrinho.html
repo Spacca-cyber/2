@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Compra Wepink - Passo a Passo</title>
+<style>
+    body {
+        margin: 0; padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #fff;
+        color: #e6007e;
+        display: flex;
+        justify-content: center;
+        padding: 2rem 1rem;
+    }
+    .container {
+        max-width: 960px;
+        width: 100%;
+    }
+    h1, h2 {
+        text-align: center;
+        font-weight: 700;
+    }
+    button {
+        background: #e6007e;
+        color: #fff;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        font-weight: 700;
+        border-radius: 6px;
+        cursor: pointer;
+        margin: 1rem 0.5rem;
+    }
+    button.outline {
+        background: transparent;
+        color: #e6007e;
+        border: 2px solid #e6007e;
+    }
+    section {
+        display: none;
+    }
+    section.active {
+        display: block;
+    }
+
+    /* ================== Loading 1 ================== */
+    .loading-container {
+        max-width: 400px;
+        width: 90%;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(230,0,126,0.2);
+        background: #fff;
+        text-align: center;
+    }
+    .loading-bar-background {
+        background: #f0f0f0;
+        border-radius: 12px;
+        height: 12px;
+        overflow: hidden;
+        margin-top: 1.5rem;
+    }
+    .loading-bar-progress {
+        background: #e6007e;
+        width: 0;
+        height: 100%;
+        border-radius: 12px;
+        animation: progressAnim 2s ease-in-out infinite;
+    }
+    @keyframes progressAnim {
+        0% { width: 0%; }
+        50% { width: 80%; }
+        100% { width: 0%; }
+    }
+
+    /* ================== Loading 2 ================== */
+    .tabs {
+        display: flex;
+        gap: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+    .tab {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        background: white;
+        border-top: 3px solid #e6007e;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: none;
+        text-align: center;
+        color: #e6007e;
+        cursor: default;
+        user-select: none;
+    }
+    .loading-panel {
+        background: #f0f0f0;
+        border-radius: 6px;
+        padding: 2rem;
+        box-shadow: 0 0 5px rgba(230,0,126,0.15);
+        color: #222;
+        font-weight: 400;
+        font-size: 0.9rem;
+    }
+    .form-placeholder {
+        margin-top: 1rem;
+        height: 150px;
+        background: linear-gradient(
+            90deg,
+            #e0d9e8 25%,
+            #f6d8e9 37%,
+            #eed1e6 63%
+        );
+        border-radius: 6px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #e6007e;
+        font-weight: 700;
+    }
+
+    /* ================== Loading 3 ================== */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+        margin-bottom: 1.5rem;
+    }
+    thead tr {
+        background: #f0f0f0;
+        color: #e6007e;
+        font-weight: 600;
+        text-align: left;
+    }
+    th, td {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #ddd;
+    }
+    td.price {
+        font-weight: 700;
+    }
+    .loading-spinner {
+        margin-left: 8px;
+        width: 18px;
+        height: 18px;
+        border: 3px solid #e6007e;
+        border-top: 3px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    .discount-input {
+        margin-bottom: 1.5rem;
+        display: flex;
+        max-width: 300px;
+    }
+    .discount-input input[type="text"] {
+        flex-grow: 1;
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px 0 0 4px;
+        font-weight: 400;
+        color: #333;
+    }
+    .discount-input button {
+        background: #e6007e;
+        border: none;
+        color: white;
+        font-weight: 700;
+        padding: 0.5rem 1rem;
+        border-radius: 0 4px 4px 0;
+        cursor: pointer;
+    }
+    .order-summary {
+        margin-top: 2rem;
+        font-weight: 700;
+        display: flex;
+        justify-content: flex-end;
+        gap: 2rem;
+    }
+    .order-summary div {
+        text-align: right;
+        min-width: 170px;
+    }
+    .checkbox-note {
+        margin-top: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 400;
+        font-size: 0.9rem;
+        max-width: 600px;
+    }
+    .checkbox-note input[type="checkbox"] {
+        accent-color: #e6007e;
+    }
+</style>
+</head>
+<body>
+<main class="container">
+
+    <!-- Passo 1 -->
+    <section id="passo1" class="active">
+        <div class="loading-container" role="alert" aria-live="polite">
+            <h2>Aguardando o preenchimento dos dados</h2>
+            <div class="loading-bar-background" aria-hidden="true">
+                <div class="loading-bar-progress"></div>
+            </div>
+            <div style="text-align:center;">
+                <button onclick="proximoPasso(2)">Próximo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Passo 2 -->
+    <section id="passo2">
+        <h1>FINALIZAR COMPRA</h1>
+        <div class="tabs" role="tablist" aria-label="Etapas da compra">
+            <div class="tab" role="tab" aria-selected="true" tabindex="0">DADOS PESSOAIS</div>
+            <div class="tab" role="tab" aria-selected="false" tabindex="-1">ENTREGA</div>
+            <div class="tab" role="tab" aria-selected="false" tabindex="-1">RESUMO DO PEDIDO</div>
+        </div>
+            <section class="loading-panel" aria-live="polite" aria-busy="true" aria-label="Carregando formulário de pagamento">
+                <div class="form-placeholder" id="payment-placeholder">
+                    Carregando formulário de pagamento...
+                </div>
+                <div style="text-align:center;">
+                    <button onclick="anteriorPasso(1)">Voltar</button>
+                    <button onclick="proximoPasso(3)">Próximo</button>
+                </div>
+            </section>
+    </section>
+
+    <!-- Passo 3 -->
+    <section id="passo3">
+        <h1>MEU CARRINHO</h1>
+        <table aria-describedby="loading-message">
+            <thead>
+                <tr>
+                    <th scope="col">PRODUTO</th>
+                    <th scope="col">ENTREGA</th>
+                    <th scope="col">PREÇO</th>
+                    <th scope="col">QUANTIDADE</th>
+                    <th scope="col">TOTAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        Kit Máscara Capilar + Proteína + Booster - Wepink
+                        <span class="loading-spinner" aria-label="Carregando item"></span>
+                    </td>
+                    <td>A Calcular</td>
+                    <td><del>R$ 451,80</del><br><strong>POR R$ 133,90</strong></td>
+                    <td>
+                        <button aria-label="Diminuir quantidade" disabled>-</button>
+                        <span aria-live="polite" aria-atomic="true" style="margin: 0 0.5rem;">1</span>
+                        <button aria-label="Aumentar quantidade" disabled>+</button>
+                    </td>
+                    <td><strong>R$ 133,90</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <form class="discount-input" aria-label="Cupom de desconto">
+            <input type="text" placeholder="Código" aria-label="Código do cupom de desconto" disabled />
+            <button type="submit" disabled>OK</button>
+        </form>
+
+        <div class="order-summary" aria-live="polite" aria-atomic="true">
+            <div>
+                <div>SUBTOTAL</div>
+                <div>R$ 451,80</div>
+                <div>DESCONTOS</div>
+                <div>R$ -317,90</div>
+                <div>ENTREGA</div>
+                <div>Calcular</div>
+                <div>TOTAL</div>
+                <div>R$ 133,90</div>
+            </div>
+        </div>
+
+        <div class="checkbox-note">
+            <input type="checkbox" checked disabled />
+            <span>Os produtos vendidos nesse site são destinados a uso e consumo, proibida sua revenda.</span>
+        </div>
+
+        <div style="text-align:center;">
+            <button onclick="anteriorPasso(2)">Voltar</button>
+        </div>
+    </section>
+
+</main>
+
+<script>
+function proximoPasso(passo) {
+    document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+    document.getElementById('passo' + passo).classList.add('active');
+    if (passo === 2) {
+        gerarPagamento();
+    }
+}
+function anteriorPasso(passo) {
+    proximoPasso(passo);
+}
+
+async function gerarPagamento() {
+    const placeholder = document.getElementById('payment-placeholder');
+    placeholder.innerHTML = 'Gerando pagamento...';
+
+    // Exemplo de itens, pode ser adaptado para ler do carrinho real
+    const items = [
+        {
+            title: 'Kit Máscara Capilar + Proteína + Booster - Wepink',
+            unit_price: 133.90,
+            quantity: 1
+        }
+    ];
+
+    try {
+        const response = await fetch('/.netlify/functions/create-preference', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items })
+        });
+        const data = await response.json();
+        if (data.qr_code && data.init_point) {
+            placeholder.innerHTML = `
+                <div style="display:flex;flex-direction:column;align-items:center;gap:1rem;">
+                    <span style="font-weight:700;color:#e6007e;">Escaneie o QR Code para pagar:</span>
+                    <img src="${data.qr_code}" alt="QR Code Pagamento" style="width:180px;height:180px;" />
+                    <button onclick="window.location.href='${data.init_point}'">Pagar agora</button>
+                </div>
+            `;
+        } else {
+            placeholder.innerHTML = 'Erro ao gerar pagamento.';
+        }
+    } catch (e) {
+        placeholder.innerHTML = 'Erro ao conectar com o servidor.';
+    }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "2",
+  "version": "1.0.0",
+  "description": "Projeto com funções Netlify e arquivos estáticos.",
+  "main": "netlify/create-preference.js",
+  "scripts": {
+    "start": "echo 'Nenhum script de inicialização definido.'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
+}
